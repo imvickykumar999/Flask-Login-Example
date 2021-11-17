@@ -11,4 +11,11 @@ def getfollowedby(url):
 
 def getname(url):
     """Split the URL from the username"""
-    return url.split("instagram.com/")[1].replace("/", "")
+
+    sp = url.split("instagram.com/")
+    print('\n---------> ', sp)
+
+    rep = sp[1].replace("/", "")
+    print('\n---------> ', rep)
+
+    return rep
