@@ -43,13 +43,15 @@ def login():
         passw = request.form['password']
         try:
             data = User.query.filter_by(username=name, password=passw).first()
+            print('\n=================> ', data)
+
             if data is not None:
                 session['logged_in'] = True
                 return redirect(url_for('home'))
             else:
-                return 'Dont Login'
+                return "Don't Login"
         except:
-            return "Dont Login"
+            return "Don't Login"
 
 
 @app.route('/register/', methods=['GET', 'POST'])
@@ -77,4 +79,3 @@ if __name__ == '__main__':
     db.create_all()
     app.secret_key = "123"
     app.run(host='0.0.0.0')
-    
