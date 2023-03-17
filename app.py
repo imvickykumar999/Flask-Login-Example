@@ -29,7 +29,12 @@ def home():
     else:
         if request.method == 'POST':
             username = getname(request.form['username'])
-            return render_template('index.html', data=getfollowedby(username))
+            data = getfollowedby(username)
+
+            return render_template('index.html', 
+                username=username, data=data[0], 
+                edge_felix_video_timeline=data[1], 
+                )
         return render_template('index.html')
 
 
@@ -50,8 +55,8 @@ def login():
                 return redirect(url_for('home'))
             else:
                 return "Don't Login"
-        except:
-            return "Don't Login"
+        except Exception as e:
+            return e
 
 
 @app.route('/register/', methods=['GET', 'POST'])
@@ -78,4 +83,4 @@ if __name__ == '__main__':
     app.debug = True
     db.create_all()
     app.secret_key = "123"
-    app.run(host='0.0.0.0')
+    app.run(debug=True)

@@ -1,16 +1,86 @@
+
 {% extends "base.html" %}
 {% block content %}
+
 {% if session['logged_in'] %}
-   
 	{% if data %}
-	<h3>{{data}}</h3>
+
+		<a target='__blank' href="https://www.instagram.com/{{username.lower()}}/">
+			<h3>Followers = {{data}}</h3>
+		</a>
+
+		<input type="text" id="myInput" 
+			onkeyup="myFunction()" 
+			value="video_url"
+			placeholder="Search for names.." 
+			title="Type in a name">
+
+		<br>
+			To Download Images or Videos, Try to Search : video_url, thumbnail_src
+		<br> <br>
+
+		<table id="myTable" border="10">
+			<thead>
+				<tr>
+				<th>Key</th>
+				<th>Value</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				{% for i in edge_felix_video_timeline %}
+					{% for key, value in i.items() %}
+						<tr>
+							<td> {{ key }} </td>
+							{% for x, y in value.items() %}
+								<tr>
+									<td> {{ x }} </td>
+									<td> {{ y }} </td>
+								</tr>
+							{% endfor %}
+
+						</tr>
+					{% endfor %}
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<script>
+			function myFunction() {
+				var input, filter, table, tr, td, i, txtValue;
+
+				input = document.getElementById("myInput");
+				filter = input.value.toUpperCase();
+				table = document.getElementById("myTable");
+				tr = table.getElementsByTagName("tr");
+
+				for (i = 0; i < tr.length; i++) {
+					td = tr[i].getElementsByTagName("td")[0];
+					if (td) {
+						txtValue = td.textContent || td.innerText;
+						if (txtValue.toUpperCase().indexOf(filter) > -1) {
+								tr[i].style.display = "";
+							} 
+						else {
+							tr[i].style.display = "none";
+						}
+					}       
+				}
+			}
+		</script>
+
 	{% else %}
 
-	<a href="/logout">Logout</a> <br> <br>
-	<form action="" method="POST">
-	  <input type="username" name="username" placeholder="Instagram Username">
-	  <input type="submit" value="Finds">
-	</form>
+		<form action="/" method="POST">
+			<input type="username" name="username" placeholder="Instagram Username">
+			<input type="submit" value="Finds">
+		</form>
+
+		<a href="/logout">
+			Logout
+		</a> 
+
+		<br> <br>
 	{% endif %}
 
 {% else %}
