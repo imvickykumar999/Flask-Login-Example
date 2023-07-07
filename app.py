@@ -6,6 +6,9 @@ from instagram import getfollowedby, getname
 
 
 app = Flask(__name__)
+app.app_context().push()
+# https://stackoverflow.com/a/52426880/11493297
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
 
