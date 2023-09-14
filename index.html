@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript in HTML</title>
+    <script>
+        // JavaScript code goes here
+        function greet() {
+            var name = prompt("Enter Link ID:"); // Prompt user for name input
+            alert("Hello, " + name + "!"); // Display greeting
+            let url = 'https://www.instagram.com/p/' + name + '/?__a=1&__d=1';
+            fetch(url)
+            .then(res => res.json())
+            .then(out =>
+            console.log('Checkout this JSON! ', out))
+            .catch(err => { throw err });
+        }
+    </script>
+</head>
+<body>
+    <button onclick="greet()">Click Me</button>
+
+<br>
+
+index.html:1 Access to fetch at 'https://www.instagram.com/p/Cwpa9TGv8Ro/?__a=1&__d=1' 
+from origin 'null' has been blocked by CORS policy: 
+
+No 'Access-Control-Allow-Origin' header is present on the requested resource. 
+If an opaque response serves your needs, 
+set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+
+</body>
+</html>
